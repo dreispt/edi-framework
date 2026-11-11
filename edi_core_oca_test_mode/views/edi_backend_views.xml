@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="edi_backend_view_form" model="ir.ui.view">
+        <field name="model">edi.backend</field>
+        <field name="inherit_id" ref="edi_core_oca.edi_backend_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <div
+                    class="alert alert-warning"
+                    role="alert"
+                    invisible="not (test_mode and test_mode_supported)"
+                >
+                    Test mode is on — exchanges use this backend's test
+                    configuration, not live partners.
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='backend_type_code']" position="after">
+                <field name="test_mode_supported" invisible="1" />
+                <field
+                    name="test_mode"
+                    widget="boolean_toggle"
+                    invisible="not test_mode_supported"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
